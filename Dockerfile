@@ -1,29 +1,25 @@
-FROM image-registry.openshift-image-registry.svc:5000/openshift/java:openjdk-17-ubi8
+# Stage 1: Build the JAR file
+FROM registry.access.redhat.com/ubi8/openjdk-17:1.15-1.1682053058 AS builder
 
-# Set the working directory
-WORKDIR /tmp
+# Set working directory
+WORKDIR /build
 
-# Copy the Maven project files
+# Copy Maven project files
 COPY pom.xml .
 COPY src ./src
 
-# Set permissions for non-root execution
-USER root
-RUN chown -R 1001:0 /tmp
+# Install Maven and build the application
+RUN yum install -y maven && mvn package -DskipTests
 
-# Switch to non-root user
-USER 1001
-
-# Build the application JAR file
-RUN mvn package -DskipTests
-
-# Set working directory for runtime
+# Stage 2: Create final runtime container
+FROM registry.access.redhat.com/ubi8/openjdk-17-runtime:1.15-1.1682053056
+# Set the working directory
 WORKDIR /app
 
-# Copy the built JAR file to the container
-COPY --from=0 /tmp/target/*.jar app.jar
+# Copy the built JAR file from the builder stage
+COPY --from=builder /build/target/*.jar app.jar
 
-# Expose the application port (change it if needed)
+# Expose the application port
 EXPOSE 8080
 
 # Run the application
