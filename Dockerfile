@@ -9,7 +9,7 @@ COPY pom.xml .
 COPY src ./src
 
 # Install Maven and build the application
-RUN yum install -y maven && mvn package -DskipTests
+RUN mvn package -DskipTests
 
 # Stage 2: Create final runtime container
 FROM registry.access.redhat.com/ubi8/openjdk-17-runtime:1.15-1.1682053056
