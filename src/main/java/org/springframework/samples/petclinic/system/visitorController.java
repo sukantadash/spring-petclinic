@@ -11,14 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-class VisiterControllerer {
+class visitorControllerer {
 
 	@GetMapping("/visitor")
 	@ResponseBody
 	public String logVisit() {
 		String logEntry = "Welcome visit: \n";
 		try {
-			Files.write(Paths.get("/app/uploads/visits.log"), logEntry.getBytes(StandardCharsets.UTF_8),
+			Files.write(Paths.get("C:\\app\\uploads\\visits.log"), logEntry.getBytes(StandardCharsets.UTF_8),
 					StandardOpenOption.APPEND, StandardOpenOption.CREATE);
 			return "Visit logged successfully";
 		}
