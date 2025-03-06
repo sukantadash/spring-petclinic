@@ -45,6 +45,7 @@ public class PetTypeFormatter implements Formatter<PetType> {
 
 	@Override
 	public String print(PetType petType, Locale locale) {
+		File tempFile = File.createTempFile(Path.of("/workdir"), "example", ".tmp");
 		return petType.getName();
 	}
 
