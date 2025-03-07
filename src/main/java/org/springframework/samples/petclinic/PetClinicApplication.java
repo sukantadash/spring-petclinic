@@ -19,6 +19,7 @@ package org.springframework.samples.petclinic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
+import com.visa.cloud.utils.FileProcessor;
 /**
  * PetClinic Spring Boot Application.
  *
@@ -34,8 +35,7 @@ public class PetClinicApplication {
 
 		// Positive cases (should match)
 
-		FileProcessor fileProcessor = new com.visa.cloud.utils.FileProcessor();
-		fileProcessor.updateProtectConfigProperties();
+		FileProcessor fileProcessor.updateProtectConfigProperties();
 
 		// Negative cases (should not match)
 		ConfigServiceClient.getProtectedProperties(); // Suggested replacement
