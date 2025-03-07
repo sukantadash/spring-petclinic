@@ -19,6 +19,8 @@ package org.springframework.samples.petclinic;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.io.File;
+//import com.visa.cloud.utils.FileProcessor;
+
 /**
  * PetClinic Spring Boot Application.
  *
@@ -30,16 +32,20 @@ public class PetClinicApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(PetClinicApplication.class, args);
-		File tempFile = File.createTempFile("example", ".tmp");
+		try {
+			// Original code (e.g., line 35)
+			File tempFile = File.createTempFile("example", ".tmp");
+		}
+		catch (Exception e) {
+			e.printStackTrace(); // Or handle the error appropriately
+		}
+		// // Positive cases (should match)
 
-		// Positive cases (should match)
+		// FileProcessor fileProcessor = fileProcessor.updateProtectConfigProperties();
 
-		FileProcessor fileProcessor = new com.visa.cloud.utils.FileProcessor();
-		fileProcessor.updateProtectConfigProperties();
-
-		// Negative cases (should not match)
-		ConfigServiceClient.getProtectedProperties(); // Suggested replacement
-		FileProcessor.otherMethod(); // Different method
+		// // Negative cases (should not match)
+		// ConfigServiceClient.getProtectedProperties(); // Suggested replacement
+		// FileProcessor.otherMethod(); // Different method
 	}
 
 }
